@@ -11,7 +11,7 @@ out = vn_ui.so
 
 .PHONY: run compile clean install uninstall
 
-run:
+help:
 	@echo ""
 	@echo "\t\t\033[38;2;55;55;200m[\033[38;2;233;233;233mMake List\033[38;2;55;55;200m]"
 	@echo "\033[0m"
