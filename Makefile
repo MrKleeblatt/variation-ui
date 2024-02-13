@@ -5,11 +5,16 @@
 
 CC = clang
 ANSI = -std=c89
+COMPILE_FLAGS = $(ANSI) -Wall
 
-lib = vn_ui.h
-out = vn_ui.so
+SOURCES = $(shell find ./src/ -name '*.c')
+OBJECTS = $(addprefix ./out/objects/,$(SOURCES:./src/%.c=%.o))
+HEADER_DIR = include/
 
-.PHONY: run compile clean install uninstall
+SHARED = out/libvn_ui.so
+STATIC = out/vn_ui.a
+
+.PHONY: help shared clean install uninstall
 
 help:
 	@echo ""
@@ -22,8 +27,19 @@ help:
 	@echo "\033[38;2;55;200;55m5.\033[38;2;233;233;233m Uninstall the library \033[38;2;200;55;55m\033[1m'make uninstall'\033[0m"
 	@echo ""
 
-compile: $(lib)
-	@$(CC) $(ANSI) -shared -fPIC $(lib) -o $(out)
+./out/objects/%.o: ./src/%.c
+	$(CC) $(COMPILE_FLAGS) -I$(HEADER_DIR) -c -o $@ $<
+
+static: $(OBJECTS)
+	ar rcs $(STATIC) $(OBJECTS)
+	@echo ""
+	@echo "\t\033[38;2;55;200;55m[\033[38;2;55;55;200m ------------------------------------- \033[38;2;55;200;55m] "
+	@echo "\t\033[38;2;55;200;55m[ \033[38;2;200;55;55m\033[4mStatic-Library\033[0m\033[38;2;233;233;233m successfully compiled! \033[38;2;55;200;55m] "
+	@echo "\t\033[38;2;55;200;55m[\033[38;2;55;55;200m ------------------------------------- \033[38;2;55;200;55m] "
+	@echo "\033[0m"
+
+shared: $(OBJECTS)
+	@$(CC) $(COMPILE_FLAGS) -shared -fPIC -o $(SHARED) $(OBJECTS)
 	
 	@echo ""
 	@echo "\t\033[38;2;55;200;55m[\033[38;2;55;55;200m ------------------------------------- \033[38;2;55;200;55m] "
@@ -32,7 +48,7 @@ compile: $(lib)
 	@echo "\033[0m"
 
 clean:
-	@rm $(out)
+	@rm $(SHARED)
 	
 	@echo ""
 	@echo "\t\033[38;2;55;200;55m[\033[38;2;55;55;200m ------------------------------------ \033[38;2;55;200;55m] "
@@ -42,8 +58,8 @@ clean:
 
 install: $(lib)
 	@sudo mkdir -p /usr/include/vn
-	@sudo cp vn_ui.h /usr/include/vn
-	@sudo chmod -x /usr/include/vn/vn_ui.h
+	@sudo cp ./include/*.h /usr/include/vn/
+	@sudo chmod -x /usr/include/vn/*.h
 
 	@echo ""
 	@echo "\t\033[38;2;55;200;55m[\033[38;2;55;55;200m ------------------------------------ \033[38;2;55;200;55m] "
