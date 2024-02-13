@@ -3,7 +3,7 @@
 #          SHARED-LIBRARY CONVERTING MAKEFILE          #
 # ---------------------------------------------------- #
 
-CC = gcc
+CC = clang
 ANSI = -std=c89
 
 lib = vn_ui.h
