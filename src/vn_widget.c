@@ -7,10 +7,10 @@
 #include <unistd.h>
 
 /* DIY LIBRARY */
-#include "lib/vn_widget.h"
-#include "lib/vn_conf.h"
-#include "lib/vn_util.h"
-#include "lib/vn_ui.h"
+#include "vn_widget.h"
+#include "vn_conf.h"
+#include "vn_util.h"
+#include "vn_ui.h"
 
 /* DRAW A LINE AS HORIZONTAL OR VERTICAL */
 void vn_line(int pos_x, int pos_y, int length, char *bg_color, char *format)

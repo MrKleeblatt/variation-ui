@@ -10,8 +10,8 @@
 #include <sys/ioctl.h>
 
 /* DIY LIBRARY */
-#include "lib/vn_util.h"
-#include "lib/vn_ui.h"
+#include "vn_util.h"
+#include "vn_ui.h"
 
 /* GET CURRENT TIME AND RETURN AS STRING */
 char *vnu_get_time(void)

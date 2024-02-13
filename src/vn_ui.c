@@ -5,8 +5,8 @@
 #include <string.h>
 
 /* DIY LIBRARY */
-#include "lib/vn_ui.h"
-#include "lib/vn_conf.h"
+#include "vn_ui.h"
+#include "vn_conf.h"
 
 /* 'boolean' => 1-> VISIBLE | 0 -> INVISIBLE */
 void vn_cursor_visibility(int boolean)
